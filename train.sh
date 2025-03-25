@@ -1,6 +1,6 @@
 #!/bin/bash
 
-STUDENT_ID=kn00794 STUDENT_NAME="Jane Doe" python main.py \
+STUDENT_ID=ye00098 STUDENT_NAME="Youssef Karim El-Aasar" python main.py \
 -s veri \
 -t veri \
 -a mobilenet_v3_small \
