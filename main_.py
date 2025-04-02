@@ -129,15 +129,18 @@ def main():
         print('Done. All layers are open to train for {} epochs'.format(args.max_epoch))
         optimizer.load_state_dict(initial_optim_state)
     """
+    stats = []
     for epoch in range(args.start_epoch, args.max_epoch):
-        train(
-            epoch,
-            model,
-            criterion_xent,
-            criterion_htri,
-            optimizer,
-            trainloader,
-            use_gpu,
+        stats.append( 
+            train(
+                epoch,
+                model,
+                criterion_xent,
+                criterion_htri,
+                optimizer,
+                trainloader,
+                use_gpu,
+            )
         )
 
         scheduler.step()
@@ -172,6 +175,9 @@ def main():
     elapsed = str(datetime.timedelta(seconds=elapsed))
     print(f"Elapsed {elapsed}")
     ranklogger.show_summary()
+
+    stats = np.array(stats)
+    np.save("stats_.npy", stats)
 
 
 def train(
@@ -237,6 +243,7 @@ def train(
 
         end = time.time()
 
+        return [batch_time.vals, data_time.vals, xent_losses.vals, htri_losses.vals, accs.vals]
 
 def test(
     model,
