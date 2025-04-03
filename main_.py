@@ -157,9 +157,10 @@ def main():
                 print(f"Evaluating {name} ...")
                 queryloader = testloader_dict[name]["query"]
                 galleryloader = testloader_dict[name]["gallery"]
-                rank1 = test(model, queryloader, galleryloader, use_gpu)
+                ranks = test(model, queryloader, galleryloader, use_gpu)
+                rank1 = ranks[0]
                 ranklogger.write(name, epoch + 1, rank1)
-
+                np.save("stats/cmc_.npy", np.array(ranks))
             save_checkpoint(
                 {
                     "state_dict": model.state_dict(),
@@ -177,7 +178,7 @@ def main():
     ranklogger.show_summary()
 
     stats = np.array(stats)
-    np.save("stats_.npy", stats)
+    np.save("stats/stats_.npy", stats)
 
 
 def train(
@@ -329,7 +330,7 @@ def test(
 
     if return_distmat:
         return distmat
-    return cmc[0]
+    return cmc
 
 
 if __name__ == "__main__":
