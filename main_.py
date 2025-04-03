@@ -244,7 +244,7 @@ def train(
 
         end = time.time()
 
-        return [batch_time.vals, data_time.vals, xent_losses.vals, htri_losses.vals, accs.vals]
+    return [batch_time.vals, data_time.vals, xent_losses.vals, htri_losses.vals, accs.vals]
 
 def test(
     model,
