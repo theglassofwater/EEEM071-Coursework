@@ -78,7 +78,7 @@ def main():
     )
     print("Model size: {:.3f} M".format(count_num_param(model)))
     print(f"Num of classes ={dm.num_train_pids}")
-    print(f"not arg.no_pretrained = {not args.no_pretraining}")
+    print(f"not arg.no_pretrained = {not args.no_pretrained}")
 
     if args.load_weights and check_isfile(args.load_weights):
         load_pretrained_weights(model, args.load_weights)
@@ -271,6 +271,7 @@ def test(
             batch_time.update(time.time() - end)
 
             features = features.data.cpu()
+            print(f"features shape: {features.shape}")
             qf.append(features)
             q_pids.extend(pids)
             q_camids.extend(camids)
