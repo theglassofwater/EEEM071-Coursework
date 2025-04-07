@@ -145,7 +145,6 @@ def build_transforms(
         transform_train += [
             T.ColorJitter(brightness=0.2, contrast=0.15, saturation=0, hue=0)
         ]
-    transform_train += [T.ToTensor()]
     if color_aug:
         transform_train += [ColorAugmentation()]
     transform_train += [normalize]
