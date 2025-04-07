@@ -153,8 +153,6 @@ def build_transforms(
     if random_erase:
         transform_train += [RandomErasing()]
 
-    # transform_train += [T.RandomCrop((height, width))]
-    # transform_test += [T.ToTensor()]
     transform_train += [T.RandomRotation([-90, 90])]
     # transform_train += [T.GaussianBlur(kernel_size=5)]
 
