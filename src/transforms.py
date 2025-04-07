@@ -145,17 +145,21 @@ def build_transforms(
         transform_train += [
             T.ColorJitter(brightness=0.2, contrast=0.15, saturation=0, hue=0)
         ]
+    # transform_train += [T.ToTensor()]
+
     if color_aug:
         transform_train += [ColorAugmentation()]
-    transform_train += [normalize]
+    
     if random_erase:
         transform_train += [RandomErasing()]
 
+    # transform_train += [T.RandomCrop((height, width))]
+    # transform_test += [T.ToTensor()]
     transform_train += [T.RandomRotation([-90, 90])]
     # transform_train += [T.GaussianBlur(kernel_size=5)]
 
     transform_train += [T.ToTensor()]
-
+    transform_train += [normalize]
 
     transform_train = T.Compose(transform_train)
 
